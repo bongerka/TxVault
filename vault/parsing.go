@@ -1,10 +1,9 @@
 package vault
 
 import (
-	"TxVault/config"
-	"TxVault/vault/client"
 	"encoding/json"
 	"fmt"
+	"github.com/bongerka/TxVault/vault/client"
 	"github.com/rogpeppe/go-internal/modfile"
 	"github.com/spf13/viper"
 	"log"
@@ -15,10 +14,10 @@ import (
 
 type parser struct {
 	client   client.Client
-	vaultCfg *config.YmlConfig
+	vaultCfg *YmlConfig
 }
 
-func newParser(vaultCfg *config.YmlConfig) *parser {
+func newParser(vaultCfg *YmlConfig) *parser {
 	clientConn, err := client.NewClientConnection(vaultCfg.Vault.Addr, vaultCfg.Vault.RoleId, vaultCfg.Vault.SecretId)
 	if err != nil {
 		log.Fatal("Unable to connect client to Vault: ", err)
@@ -134,8 +133,8 @@ func GetServiceName() string {
 	return serviceName
 }
 
-func parseApproleConfig(configPath string) *config.YmlConfig {
-	var cfg config.YmlConfig
+func parseApproleConfig(configPath string) *YmlConfig {
+	var cfg YmlConfig
 
 	viper.SetConfigFile(configPath)
 
